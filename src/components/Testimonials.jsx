@@ -3,15 +3,15 @@ import a2 from '../assets/avatar2.jpg';
 import a3 from '../assets/avatar3.jpg';
 
 const T = [
-  { img: a1, n: 'Karim Benali', r: 'Transporteur — TransRoute', t: 'TrackPulse a transformé notre quotidien : nos clients voient leurs colis en direct et nos conducteurs reçoivent leurs tournées optimisées.' },
-  { img: a2, n: 'Sophie Marchand', r: 'Responsable logistique — NordFret', t: 'En trois mois nous avons réduit nos kilomètres à vide de 22%. Les rapports sont clairs et exploitables.' },
-  { img: a3, n: 'Mehdi Rahmouni', r: 'Directeur d\'entrepôt — LogiPlus', t: 'Le scan à chaque étape a quasiment supprimé les erreurs de chargement. Un outil indispensable.' },
+  { img: a1, n: 'Karim Benali', r: 'Responsable Logistique', t: 'Grâce à cette plateforme, nous avons centralisé toute la gestion de nos expéditions. Le suivi en temps réel et les tableaux de bord nous permettent aujourd\'hui de prendre des décisions beaucoup plus rapidement."' },
+  { img: a2, n: 'Sophie Marchand', r: 'Chef d\'Exploitation', t: '"L\'interface est intuitive, les informations sont accessibles instantanément et toute notre équipe collabore désormais sur une plateforme unique. Un véritable gain de temps au quotidien."' },
+  { img: a3, n: 'Mehdi Rahmouni', r: 'Directeur des Opérations', t: '"La gestion des colis est devenue simple, fluide et parfaitement organisée. Nous avons considérablement réduit les erreurs et amélioré la satisfaction de nos clients."' },
 ];
 
 export default function Testimonials() {
   return (
     <section className="section container">
-      <h2 className="section-title">La confiance des professionnels du transport</h2>
+      <h2 className="section-title">Témoignages</h2>
       <div className="tlist">
         {T.map((x) => (
           <div className="tcard" key={x.n}>

@@ -45,7 +45,6 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   position: relative; z-index: 5;
   display: flex; align-items: center; justify-content: space-between;
   padding: 22px 36px;
-  background: rgba(0,0,0,.3);
   backdrop-filter: blur(8px);
 }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .3px; }

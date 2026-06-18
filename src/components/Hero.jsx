@@ -1,7 +1,7 @@
 import truck from '../assets/hero-truck.jpg';
 import { useState } from 'react';
 
-const NAV = ['Aperçu', 'Flotte', 'Automatisation', 'Suivi GPS', 'Analyses', 'Tarifs', 'Société'];
+const NAV = ['', 'Fonctionnalités', 'Gestion des expéditions', 'Traçabilité', 'Analyses', 'Témoignages', ''];
 
 const STATS = [
   { label: 'Livraisons à temps', value: '96%', trend: 'up', delta: '+4% ce mois' },
@@ -62,10 +62,13 @@ export default function Hero() {
         )}
 
         <div className="hero-content">
-          <h1>Un transport terrestre plus intelligent grâce au suivi en temps réel</h1>
+          <h1>Optimisez la gestion de vos expéditions avec une plateforme logistique intelligente</h1>
           <p className="lead">
-            Pilotez vos expéditions, optimisez vos itinéraires et coordonnez votre flotte
-            depuis une seule plateforme logistique intelligente.
+            Centralisez la gestion de vos expéditions, suivez chaque colis en temps réel 
+            et améliorez la coordination entre vos équipes grâce à une plateforme conçue 
+            pour les professionnels du transport et de la logistique. De la création d'une
+             expédition jusqu'à la confirmation de livraison, gardez une visibilité complète 
+             sur toutes vos opérations.
           </p>
           <div className="hero-cta">
             <button className="btn btn-white">Démo gratuite</button>

@@ -1,14 +1,14 @@
 const STEPS = [
-  { n: '01', h: 'Connectez votre flotte', p: 'Importez vos véhicules, conducteurs et clients en quelques minutes.' },
-  { n: '02', h: 'Suivez en temps réel', p: 'Cartographie en direct et alertes automatiques en cas d\'écart.' },
-  { n: '03', h: 'Optimisez vos livraisons', p: 'Analyses opérationnelles pour ajuster vos tournées et vos coûts.' },
+  { n: '01', h: 'Enregistrez vos expéditions', p: 'Ajoutez rapidement vos clients, vos destinataires, vos colis et toutes les informations nécessaires à l\'organisation des livraisons. Quelques minutes suffisent pour démarrer vos opérations.' },
+  { n: '02', h: 'Analysez et améliorez', p: 'Exploitez les tableaux de bord et les rapports d\'activité afin d\'évaluer vos performances, d\'identifier les points d\'amélioration et d\'optimiser durablement votre organisation.' },
+  { n: '03', h: 'Suivez chaque étape', p: 'Consultez en temps réel l\'évolution de vos expéditions, mettez à jour leur statut et informez automatiquement les différents intervenants tout au long du processus de livraison.' },
 ];
 
 export default function Steps() {
   return (
     <section className="steps-section">
-      <h2 className="section-title">De la donnée à de meilleures livraisons</h2>
-      <p className="section-sub">Trois étapes pour transformer votre logistique terrestre.</p>
+      <h2 className="section-title">Comment ça fonctionne ?</h2>
+      <p className="section-sub">Notre plateforme simplifie la gestion des expéditions en seulement trois étapes.</p>
       <div className="steps">
         {STEPS.map((s) => (
           <div className="step" key={s.n}>
