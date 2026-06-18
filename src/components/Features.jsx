@@ -1,9 +1,10 @@
-import { Truck, MapPin, ScanBarcode, BarChart3, Route } from 'lucide-react';
+import { Truck, MapPin, ScanBarcode, BarChart3, Route, Lock } from 'lucide-react';
 import fleet from '../assets/feat-fleet.jpg';
 import tracking from '../assets/feat-tracking.jpg';
 import scan from '../assets/feat-scan.jpg';
 import analytics from '../assets/feat-analytics.jpg';
 import route from '../assets/feat-route.jpg';
+import secure from '../assets/feat-secure.png';
 
 const ITEMS = [
   { img: fleet, icon: <Truck size={18} />, title: 'Gestion de flotte', text: 'Centralisez vos véhicules, conducteurs et maintenance dans un tableau de bord unique.' },
@@ -11,6 +12,8 @@ const ITEMS = [
   { img: scan, icon: <ScanBarcode size={18} />, title: 'Scan & traçabilité', text: 'Code-barres et QR à chaque étape pour une chaîne logistique 100% traçable.' },
   { img: analytics, icon: <BarChart3 size={18} />, title: 'Analyses opérationnelles', text: 'Identifiez les goulots d\'étranglement et améliorez vos KPI livraison.' },
   { img: route, icon: <Route size={18} />, title: 'Optimisation d\'itinéraires', text: 'Calcul intelligent des trajets pour réduire les kilomètres et la consommation.' },
+  { img: secure, icon: <Lock size={18} />, title: 'Sécurité et gestion des accès', text: 'Contrôlez l\'accès à votre système et protégez vos données sensibles.' },
+
 ];
 
 export default function Features() {
