@@ -1,3 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* reset custom */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --blue-500: #2563eb;
+  --blue-600: #1d4ed8;
+  --blue-700: #1e3a8a;
+  --blue-grad: linear-gradient(180deg, #1e6bff 0%, #1d4ed8 60%, #1e3a8a 100%);
+  --ink: #0b1220;
+  --ink-2: #1a2233;
+  --text: #0f172a;
+  --muted: #64748b;
+  --bg: #f5f6f8;
+}
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --blue-500: #2563eb;

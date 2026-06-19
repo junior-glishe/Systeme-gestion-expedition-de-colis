@@ -1,13 +1,17 @@
-import Hero from './components/Hero.jsx';
-import Features from './components/Features.jsx';
-import Technology from './components/Technology.jsx';
-import Steps from './components/Steps.jsx';
-import Metrics from './components/Metrics.jsx';
-import Testimonials from './components/Testimonials.jsx';
-import CallToAction from './components/CallToAction.jsx';
-import Footer from './components/Footer.jsx';
+import { Routes, Route } from "react-router-dom";
 
-export default function App() {
+import Hero from "./components/Hero";
+import Features from "./components/Features";
+import Technology from "./components/Technology";
+import Steps from "./components/Steps";
+import Metrics from "./components/Metrics";
+import Testimonials from "./components/Testimonials";
+import CallToAction from "./components/CallToAction";
+import Footer from "./components/Footer";
+
+import Login from "./pages/Login";
+
+function Home() {
   return (
     <>
       <Hero />
@@ -19,5 +23,14 @@ export default function App() {
       <CallToAction />
       <Footer />
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
   );
 }

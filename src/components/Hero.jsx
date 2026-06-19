@@ -1,5 +1,6 @@
 import truck from '../assets/hero-truck.jpg';
 import { useState } from 'react';
+import { Link } from "react-router-dom";
 
 const NAV = ['', 'Fonctionnalités', 'Gestion des expéditions', 'Traçabilité', 'Analyses', 'Témoignages', ''];
 
@@ -38,8 +39,9 @@ export default function Hero() {
           </div>
           <div className="nav-buttons">
             <button className="btn btn-ghost">Demande d'inscription</button>
-            <button className="btn btn-white">Commencer</button>
-          </div>
+<Link to="/login" className="btn btn-white">
+  Commencer
+</Link>          </div>
           <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
             <span></span>
             <span></span>
