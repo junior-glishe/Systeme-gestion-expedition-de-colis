@@ -44,7 +44,7 @@ export default function Login() {
         </svg>
 
         {/* Animation Lottie remontée */}
-        <div className="relative z-20 w-[75%] max-w-[28rem] -mt-[8%] drop-shadow-2xl">
+        <div className="relative z-20 w-[70%] max-w-[40rem] -mt-[8%] drop-shadow-2xl">
           <DotLottieReact
             src="https://lottie.host/da2b453f-477a-4374-8012-d935fbe38013/BC31w6BuHW.lottie"
             loop

@@ -38,10 +38,13 @@ export default function Hero() {
             ))}
           </div>
           <div className="nav-buttons">
-            <button className="btn btn-ghost">Demande d'inscription</button>
-<Link to="/login" className="btn btn-white">
-  Commencer
-</Link>          </div>
+            <Link className="btn btn-ghost" to="/register">
+              Demande d'inscription
+            </Link>
+            <Link to="/login" className="btn btn-white">
+              Commencer
+            </Link>         
+          </div>
           <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
             <span></span>
             <span></span>
@@ -64,7 +67,7 @@ export default function Hero() {
         )}
 
         <div className="hero-content">
-          <h1>Optimisez la gestion de vos expéditions avec une plateforme logistique intelligente</h1>
+          <h1>Optimisez la gestion de vos expéditions de colis avec une plateforme logistique intelligente</h1>
           <p className="lead">
             Centralisez la gestion de vos expéditions, suivez chaque colis en temps réel 
             et améliorez la coordination entre vos équipes grâce à une plateforme conçue 
