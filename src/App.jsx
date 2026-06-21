@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Hero from "./components/Hero";
 import Features from "./components/Features";
@@ -12,7 +12,8 @@ import Footer from "./components/Footer";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 
-import Dashboard from "./pages/Chauffeur/Dashboard";
+import { chauffeurRoutes } from "./pages/Chauffeur";
+import { ChauffeurLayout } from "./components/layout";
 
 
 function Home() {
@@ -35,11 +36,14 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
-
       <Route path="/register" element={<Register />} />
-      <Route path="/dashboard" element={<Dashboard />} />
 
-      
+      <Route path="/chauffeur" element={<ChauffeurLayout />}>
+        <Route index element={<Navigate to="dashboard" replace />} />
+        {chauffeurRoutes.map(({ path, element: Page }) => (
+          <Route key={path} path={path} element={<Page />} />
+        ))}
+      </Route>
     </Routes>
   );
 }
