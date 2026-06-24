@@ -16,9 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
     // Redirection personnalisée pour les requêtes non authentifiées
     $middleware->redirectGuestsTo(function ($request) {
         if ($request->expectsJson()) {
-            return null; // 👈 Pour les API : pas de redirection
+            return null; // 
         }
-        return route('login'); // 👈 Pour le web : redirige vers login
+        return route('login'); // 
     });
     })
     ->withExceptions(function (Exceptions $exceptions): void {

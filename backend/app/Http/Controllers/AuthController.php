@@ -9,10 +9,10 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    //  INSCRIPTION (Demande de compte)
+    
     public function register(Request $request)
     {
-        // 1. Validation
+        
         $validator = Validator::make($request->all(), [
             'nom' => 'required|string|max:255',
             'email' => 'required|email|unique:utilisateurs,email',
@@ -23,16 +23,16 @@ class AuthController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        // 2. Création avec rôle ADMIN par défaut
+       
         $user = User::create([
             'nom' => $request->nom,
             'email' => $request->email,
             'mot_de_passe' => $request->mot_de_passe,
-            'role' => 'ADMIN',  //  PAR DÉFAUT
-            'actif' => false,   //  En attente de validation
+            'role' => 'ADMIN',
+            'actif' => false,   
         ]);
 
-        // 3. Token
+       
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
