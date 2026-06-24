@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LogOut, ChevronDown, X } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Sidebar({ menuGroups, isOpen, onClose }) {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const [expandedGroup, setExpandedGroup] = useState(menuGroups[0]?.label ?? null);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+  const handleLogout = async () => { await logout(); navigate("/login"); };
 
   return (
     <>

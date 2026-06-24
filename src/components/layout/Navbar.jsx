@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { Bell, Search, User, LogOut, Settings, Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function Navbar({ onMenuToggle, sidebarOpen }) {
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const handleLogout = () => {
-    // À remplacer par la logique d'authentification réelle
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+  const initials = (user?.nom || "U U").split(" ").map(p => p[0]).slice(0,2).join("").toUpperCase();
+  const handleLogout = async () => { await logout(); navigate("/login"); };
 
   return (
     <nav className="bg-white border-b border-gray-200 shadow-sm">
@@ -53,10 +51,10 @@ export default function Navbar({ onMenuToggle, sidebarOpen }) {
               className="flex items-center gap-3 p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
               <div className="w-8 h-8 bg-gradient-to-br from-[#ff7a30] to-[#ff5a0a] rounded-full flex items-center justify-center">
-                <span className="text-white text-sm font-bold">JD</span>
+                <span className="text-white text-sm font-bold">{initials}</span>
               </div>
               <span className="hidden sm:inline text-sm font-medium text-gray-700">
-                Miette Kouandzi
+                {user?.nom || "Utilisateur"}
               </span>
             </button>
 

@@ -1,9 +1,4 @@
-import {
-  LayoutDashboard,
-  Package,
-  Truck,
-  AlertTriangle,
-} from "lucide-react";
+import { LayoutDashboard, Package, Truck, AlertTriangle } from "lucide-react";
 
 export const chauffeurMenu = [
   {
