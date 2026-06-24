@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Chauffeur;
+use App\Models\Expedition;
 use Illuminate\Database\Eloquent\Model;
 
 class Vehicule extends Model

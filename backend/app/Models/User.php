@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Agence;
+use App\Models\Chauffeur;
+use App\Models\Expedition;
+use App\Models\Rapport;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;

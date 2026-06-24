@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Expedition;
 use Illuminate\Database\Eloquent\Model;
 
 class Tarif extends Model
