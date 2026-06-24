@@ -19,22 +19,37 @@ export default function Dashboard({
     ongoingDeliveries: 0,
     openIncidents: 0,
     todayDeliveries: 0,
-    completionRate: 0
+    completionRate: 0,
+    performanceRate: 0,
+    satisfactionRate: 0
   });
 
   useEffect(() => {
     const total = packages?.length || 0;
     const delivered = packages?.filter(p => p.status === "livre")?.length || 0;
+    const ongoing = packages?.filter(p => p.status === "en_cours")?.length || 0;
+    const delayed = packages?.filter(p => p.status === "en_attente" && p.deliveryDate && new Date(p.deliveryDate) < new Date())?.length || 0;
     
+    // Calcul du taux de performance basé sur les livraisons à temps
+    const onTimeDeliveries = packages?.filter(p => 
+      p.status === "livre" && p.deliveryDate && new Date(p.deliveryDate) <= new Date(p.expectedDeliveryDate || p.deliveryDate)
+    )?.length || 0;
+    
+    // Calcul du taux de satisfaction basé sur les incidents
+    const incidentCount = incidents?.length || 0;
+    const satisfactionRate = total > 0 ? Math.max(0, 100 - (incidentCount / total) * 20) : 0;
+
     setStats({
       totalPackages: total,
-      ongoingDeliveries: packages?.filter(p => p.status === "en_cours")?.length || 0,
-      openIncidents: incidents?.length || 0,
+      ongoingDeliveries: ongoing,
+      openIncidents: incidentCount,
       todayDeliveries: packages?.filter(p => {
         const today = new Date().toDateString();
         return p.deliveryDate && new Date(p.deliveryDate).toDateString() === today;
       })?.length || 0,
-      completionRate: total > 0 ? Math.round((delivered / total) * 100) : 0
+      completionRate: total > 0 ? Math.round((delivered / total) * 100) : 0,
+      performanceRate: total > 0 ? Math.round((onTimeDeliveries / total) * 100) : 0,
+      satisfactionRate: Math.round(satisfactionRate)
     });
   }, [packages, incidents]);
 
@@ -267,11 +282,23 @@ export default function Dashboard({
         />
       </div>
 
-      {/* Progression */}
+      {/* Progression avec données réelles */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <ProgressCard title="Taux de livraison" value={stats.completionRate} color="bg-gradient-to-r from-blue-500 to-blue-600" />
-        <ProgressCard title="Performance" value={Math.min(100, stats.completionRate + 15)} color="bg-gradient-to-r from-emerald-500 to-emerald-600" />
-        <ProgressCard title="Satisfaction" value={Math.min(100, stats.completionRate + 20)} color="bg-gradient-to-r from-purple-500 to-purple-600" />
+        <ProgressCard 
+          title="Taux de livraison" 
+          value={stats.completionRate} 
+          color="bg-gradient-to-r from-blue-500 to-blue-600" 
+        />
+        <ProgressCard 
+          title="Performance" 
+          value={stats.performanceRate} 
+          color="bg-gradient-to-r from-emerald-500 to-emerald-600" 
+        />
+        <ProgressCard 
+          title="Satisfaction" 
+          value={stats.satisfactionRate} 
+          color="bg-gradient-to-r from-purple-500 to-purple-600" 
+        />
       </div>
 
       {/* Colonnes des dernières activités */}
