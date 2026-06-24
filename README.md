@@ -102,7 +102,7 @@ src/
 └── styles.css               # Tailwind + design tokens
 ```
 
-## 🔌 Contrat API attendu (Laravel)
+##  Contrat API attendu (Laravel)
 
 Le frontend interroge ces endpoints. Le contrat respecte le **diagramme de classe** fourni.
 
@@ -148,7 +148,7 @@ GET /api/dashboard/agent       → { colis, expeditions, clients, paiements }
 GET /api/dashboard/chauffeur   → { colisAffectes, trajetsJour, incidents }
 ```
 
-## 🗺️ Mapping UML → Code
+##  Mapping UML → Code
 
 | Classe UML | Service frontend | Schéma de validation |
 |-----------|------------------|----------------------|
@@ -166,7 +166,7 @@ GET /api/dashboard/chauffeur   → { colisAffectes, trajetsJour, incidents }
 | `Notification` | `notificationsService` | — (lecture seule) |
 | `Rapport` | `rapportsService` | — (form inline) |
 
-## 🧪 Tests locaux sans backend
+##  Tests locaux sans backend
 
 Sans API démarrée, les pages CRUD affichent simplement « Aucune donnée » et les actions affichent un toast d'erreur — l'application **ne plante pas**. Dès que `VITE_API_URL` pointe vers une API Laravel conforme, tout devient fonctionnel sans modification du code.
 
