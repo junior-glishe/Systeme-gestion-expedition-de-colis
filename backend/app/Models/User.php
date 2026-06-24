@@ -6,6 +6,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Boost\Install\Agents\Agent;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -36,4 +37,31 @@ class User extends Authenticatable
     {
         $this->attributes['mot_de_passe'] = bcrypt($value);
     }
+
+    //  RELATIONS
+    public function agence()
+    {
+        return $this->hasOne(Agence::class, 'id_user', 'id_user');
+    }
+
+    public function chauffeur()
+    {
+        return $this->hasOne(Chauffeur::class, 'id_user', 'id_user');
+    }
+
+    public function agent()
+    {
+        return $this->hasOne(Agent::class, 'id_user', 'id_user');
+    }
+
+    public function expeditions()
+    {
+        return $this->hasMany(Expedition::class, 'id_agent', 'id_user');
+    }
+
+    public function rapports()
+    {
+        return $this->hasMany(Rapport::class, 'id_admin', 'id_user');
+    }
+    
 }
