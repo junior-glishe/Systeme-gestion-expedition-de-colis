@@ -12,10 +12,14 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
-         $middleware->api(prepend: [
-        \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-    ]);
+    ->withMiddleware(function (Middleware $middleware) {
+    // Redirection personnalisée pour les requêtes non authentifiées
+    $middleware->redirectGuestsTo(function ($request) {
+        if ($request->expectsJson()) {
+            return null; // 👈 Pour les API : pas de redirection
+        }
+        return route('login'); // 👈 Pour le web : redirige vers login
+    });
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
