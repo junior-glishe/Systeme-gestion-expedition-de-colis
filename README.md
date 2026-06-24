@@ -3,7 +3,7 @@
 Application **React 18 + Vite** pour la gestion et le suivi des expéditions de colis par transport routier.
 Le backend est prévu en **Laravel + PostgreSQL** et est consommé via une API REST. Cette application est uniquement le **frontend** : aucune base de données n'est embarquée.
 
-## ✨ Fonctionnalités
+##  Fonctionnalités
 
 L'application implémente fidèlement les diagrammes UML fournis (contexte, cas d'utilisation, classes) :
 
@@ -22,7 +22,7 @@ L'application implémente fidèlement les diagrammes UML fournis (contexte, cas 
 - `/unauthorized` — Accès refusé
 - `*` — Page 404
 
-## 🚀 Démarrage rapide
+##  Démarrage rapide
 
 ```bash
 # 1. Installation
@@ -40,7 +40,7 @@ bun run build
 bun run preview
 ```
 
-## 🔐 Sécurité
+##  Sécurité
 
 L'application applique plusieurs couches de sécurité côté client :
 
@@ -64,7 +64,7 @@ L'application applique plusieurs couches de sécurité côté client :
 - Hash bcrypt/argon2 des mots de passe
 - Vérification des rôles côté serveur sur **toutes** les routes (ne jamais se fier au RBAC client seul)
 
-## 🏗️ Architecture
+##  Architecture
 
 Voir [`ARCHITECTURE.md`](./ARCHITECTURE.md) pour la cartographie complète.
 
@@ -170,7 +170,7 @@ GET /api/dashboard/chauffeur   → { colisAffectes, trajetsJour, incidents }
 
 Sans API démarrée, les pages CRUD affichent simplement « Aucune donnée » et les actions affichent un toast d'erreur — l'application **ne plante pas**. Dès que `VITE_API_URL` pointe vers une API Laravel conforme, tout devient fonctionnel sans modification du code.
 
-## 📦 Stack technique
+##  Stack technique
 
 - **React 18.3** + **Vite 5**
 - **React Router 6** (routing déclaratif + nested routes)
@@ -182,6 +182,25 @@ Sans API démarrée, les pages CRUD affichent simplement « Aucune donnée » et
 - **react-hot-toast** (notifications)
 - **@lottiefiles/dotlottie-react** (animation login)
 
-## 📝 Licence
 
-Projet académique / interne.
+
+Projet.
+
+
+Les differents chemin : 
+
+http://localhost:5173/admin/dashboard
+http://localhost:5173/admin/utilisateurs
+http://localhost:5173/admin/agences
+
+http://localhost:5173/agent/dashboard
+http://localhost:5173/agent/clients
+http://localhost:5173/agent/colis
+http://localhost:5173/agent/expeditions
+http://localhost:5173/agent/paiements
+
+http://localhost:5173/chauffeur/dashboard
+http://localhost:5173/chauffeur/mes-colis
+http://localhost:5173/chauffeur/mes-trajets
+http://localhost:5173/chauffeur/modifier-statut
+http://localhost:5173/chauffeur/incident
