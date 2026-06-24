@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Trajet;
 use Illuminate\Database\Eloquent\Model;
 
 class Expedition extends Model

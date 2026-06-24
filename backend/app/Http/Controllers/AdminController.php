@@ -7,6 +7,7 @@ use App\Models\Agence;
 use App\Models\Vehicule;
 use App\Models\Tarif;
 use App\Models\Rapport;
+use App\Models\Trajet;  // 👈 AJOUTÉ
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -21,6 +22,7 @@ class AdminController extends Controller
             'total_agences' => Agence::count(),
             'total_vehicules' => Vehicule::count(),
             'total_tarifs' => Tarif::count(),
+            'total_trajets' => Trajet::count(),  // 👈 AJOUTÉ
             'users_actifs' => User::where('actif', true)->count(),
         ];
 
@@ -221,7 +223,49 @@ class AdminController extends Controller
         return response()->json(['message' => 'Tarif supprimé'], 200);
     }
 
-    // 📌 6. GÉNÉRER UN RAPPORT
+    // 📌 6. GESTION DES TRAJETS (CRUD)  👈 NOUVEAU
+    public function getTrajets()
+    {
+        $trajets = Trajet::all();
+        return response()->json(['trajets' => $trajets], 200);
+    }
+
+    public function createTrajet(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'ville_depart' => 'required|string|max:100',
+            'ville_arrivee' => 'required|string|max:100',
+            'distance_km' => 'required|numeric',
+            'duree_estimee_h' => 'required|integer',
+            'actif' => 'boolean',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $trajet = Trajet::create($request->all());
+
+        return response()->json(['message' => 'Trajet créé avec succès', 'trajet' => $trajet], 201);
+    }
+
+    public function updateTrajet(Request $request, $id)
+    {
+        $trajet = Trajet::findOrFail($id);
+        $trajet->update($request->all());
+
+        return response()->json(['message' => 'Trajet mis à jour', 'trajet' => $trajet], 200);
+    }
+
+    public function deleteTrajet($id)
+    {
+        $trajet = Trajet::findOrFail($id);
+        $trajet->delete();
+
+        return response()->json(['message' => 'Trajet supprimé'], 200);
+    }
+
+    // 📌 7. GÉNÉRER UN RAPPORT
     public function genererRapport(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -235,7 +279,6 @@ class AdminController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        // Génération du rapport
         $rapport = Rapport::create([
             'type_rapport' => $request->type_rapport,
             'periode_debut' => $request->periode_debut,
@@ -253,13 +296,13 @@ class AdminController extends Controller
 
     private function getRapportData($type, $debut, $fin)
     {
-        // Simule des données pour le rapport
         return [
             'type' => $type,
             'periode' => [$debut, $fin],
             'total_utilisateurs' => User::count(),
             'total_agences' => Agence::count(),
             'total_vehicules' => Vehicule::count(),
+            'total_trajets' => Trajet::count(),  // 👈 AJOUTÉ
         ];
     }
 }

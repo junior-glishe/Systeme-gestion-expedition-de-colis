@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Colis;
 use App\Models\Expedition;
-use App\Models\Paiement;
 use App\Models\Notification;
+use App\Models\Paiement;
 use App\Models\Recu;
+use App\Models\Tarif;
+use App\Models\Trajet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -58,52 +60,115 @@ class AgentController extends Controller
     }
 
     // 📌 2. GESTION DES COLIS (CRUD)
-    public function getColis()
-    {
-        $colis = Colis::with('expedition')->get();
-        return response()->json(['colis' => $colis], 200);
+public function getColis()
+{
+    $colis = Colis::with('expedition')->get();
+    return response()->json(['colis' => $colis], 200);
+}
+
+public function createColis(Request $request)
+{
+    // 1. Validation
+    $validator = Validator::make($request->all(), [
+        'reference' => 'required|string|unique:colis,reference',
+        'description' => 'nullable|string',
+        'poids' => 'required|numeric',
+        'longueur' => 'nullable|numeric',
+        'largeur' => 'nullable|numeric',
+        'hauteur' => 'nullable|numeric',
+        'valeur_declaree' => 'nullable|numeric',
+        'id_expedition' => 'required|exists:expeditions,id_expedition',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
     }
 
-    public function createColis(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'reference' => 'required|string|unique:colis,reference',
-            'description' => 'nullable|string',
-            'poids' => 'required|numeric',
-            'longueur' => 'nullable|numeric',
-            'largeur' => 'nullable|numeric',
-            'hauteur' => 'nullable|numeric',
-            'valeur_declaree' => 'nullable|numeric',
-            'id_expedition' => 'required|exists:expeditions,id_expedition',
-        ]);
+    // 2. Création du colis
+    $colis = Colis::create([
+        'reference' => $request->reference,
+        'description' => $request->description,
+        'poids' => $request->poids,
+        'longueur' => $request->longueur,
+        'largeur' => $request->largeur,
+        'hauteur' => $request->hauteur,
+        'valeur_declaree' => $request->valeur_declaree ?? 0,
+        'statut' => 'en_transit',
+        'date_creation' => now(),
+        'id_expedition' => $request->id_expedition,
+    ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+    // 3. 🔥 CALCUL AUTOMATIQUE
+    $this->calculerCoutTotal($request->id_expedition);
+
+    // 4. Notification
+    $this->createNotification($colis, 'Création de colis');
+
+    // 5. Récupérer l'expédition mise à jour
+    $expedition = Expedition::find($request->id_expedition);
+
+    return response()->json([
+        'message' => 'Colis créé avec succès',
+        'colis' => $colis,
+        'cout_total' => $expedition->cout_total ?? 0,
+    ], 201);
+}
+
+public function updateColis(Request $request, $id)
+{
+    $colis = Colis::findOrFail($id);
+    $old_expedition_id = $colis->id_expedition;
+    
+    $colis->update($request->all());
+
+    // 🔥 Recalcul si le poids ou l'expédition change
+    if ($request->has('poids') || $request->has('id_expedition')) {
+        $new_expedition_id = $request->id_expedition ?? $old_expedition_id;
+        $this->calculerCoutTotal($new_expedition_id);
+        
+        // Si l'expédition a changé, recalculer aussi l'ancienne
+        if ($request->has('id_expedition') && $old_expedition_id != $new_expedition_id) {
+            $this->calculerCoutTotal($old_expedition_id);
         }
-
-        $colis = Colis::create($request->all());
-
-        // 📧 GÉNÉRER UNE NOTIFICATION
-        $this->createNotification($colis, 'Création de colis');
-
-        return response()->json(['message' => 'Colis créé avec succès', 'colis' => $colis], 201);
     }
 
-    public function updateColis(Request $request, $id)
-    {
-        $colis = Colis::findOrFail($id);
-        $colis->update($request->all());
+    return response()->json([
+        'message' => 'Colis mis à jour',
+        'colis' => $colis,
+    ], 200);
+}
 
-        return response()->json(['message' => 'Colis mis à jour', 'colis' => $colis], 200);
-    }
+public function deleteColis($id)
+{
+    $colis = Colis::findOrFail($id);
+    $expedition_id = $colis->id_expedition;
+    
+    $colis->delete();
 
-    public function deleteColis($id)
-    {
-        $colis = Colis::findOrFail($id);
-        $colis->delete();
+    // 🔥 Recalcul après suppression
+    $this->calculerCoutTotal($expedition_id);
 
-        return response()->json(['message' => 'Colis supprimé'], 200);
-    }
+    return response()->json(['message' => 'Colis supprimé'], 200);
+}
+
+// 📌 MÉTHODE PRIVÉE POUR RECALCULER LE COUT_TOTAL
+private function calculerCoutTotal($expedition_id)
+{
+    $expedition = Expedition::find($expedition_id);
+    if (!$expedition) return;
+
+    $tarif = Tarif::find($expedition->id_tarif);
+    $trajet = Trajet::find($expedition->id_trajet);
+
+    if (!$tarif || !$trajet) return;
+
+    $poids_total = Colis::where('id_expedition', $expedition_id)->sum('poids');
+
+    $cout_total = ($tarif->prix_par_kg * $poids_total) + ($tarif->prix_par_km * $trajet->distance_km);
+
+    $expedition->cout_total = $cout_total;
+    $expedition->save();
+}
 
     // 📌 3. GESTION DES EXPÉDITIONS (CRUD)
     public function getExpeditions()

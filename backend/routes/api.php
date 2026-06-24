@@ -47,6 +47,12 @@ Route::prefix('admin')->middleware(['auth:sanctum'])->group(function () {
     Route::put('/tarifs/{id}', [AdminController::class, 'updateTarif']);
     Route::delete('/tarifs/{id}', [AdminController::class, 'deleteTarif']);
 
+    // Trajets (Admin)
+    Route::get('/trajets', [AdminController::class, 'getTrajets']);
+    Route::post('/trajets', [AdminController::class, 'createTrajet']);
+    Route::put('/trajets/{id}', [AdminController::class, 'updateTrajet']);
+    Route::delete('/trajets/{id}', [AdminController::class, 'deleteTrajet']);
+
     // Rapports
     Route::post('/rapports', [AdminController::class, 'genererRapport']);
 });
