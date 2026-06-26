@@ -1,11 +1,11 @@
 
-# 🚚 ColisFlow - Backend Laravel
+#  ColisFlow - Backend Laravel
 
 Application backend Laravel pour la gestion et le suivi des expéditions de colis par transport routier. Cette API REST est consommée par le frontend React (TrackPulse) et gère toute la logique métier, l'authentification, et la persistance des données dans PostgreSQL.
 
 ---
 
-## 📋 À propos du projet
+##  À propos du projet
 
  C'est le backend qui alimente l'application ColisFlow. Il implémente fidèlement les diagrammes UML fournis (contexte, cas d'utilisation, classes) et expose une API RESTful sécurisée pour :
 
@@ -17,7 +17,7 @@ Application backend Laravel pour la gestion et le suivi des expéditions de coli
 
 ---
 
-## 🛠️ Stack technique
+##  Stack technique
 
 | Composant | Technologie | Version |
 |-----------|-------------|---------|
@@ -76,7 +76,7 @@ php artisan sanctum:install
 
 ---
 
-## 🗄️ Base de données PostgreSQL
+##  Base de données PostgreSQL
 
 ### 1. Créer la base de données
 
@@ -116,7 +116,7 @@ Cela créera :
 
 ---
 
-## 🚀 Lancement du serveur
+##  Lancement du serveur
 
 ```bash
 php artisan serve
@@ -130,7 +130,7 @@ Pour utiliser avec le frontend React, assurez-vous que `VITE_API_URL` pointe ver
 VITE_API_URL=http://127.0.0.1:8000/api
 ```
 
-## 📁 Structure du projet
+### 5.  Structure du projet
 backend/
 ├── app/
 │   ├── Http/
@@ -251,7 +251,7 @@ backend/
 ├── README.md                                # Documentation du projet
 └── vite.config.js                           # Configuration Vite
 
-## 🔐 Mapping UML → Modèles & Contrôleurs
+##  Mapping UML → Modèles & Contrôleurs
 
 | Classe UML | Modèle Eloquent | Fichier | Contrôleur | Routes API |
 |------------|-----------------|---------|------------|------------|
@@ -272,7 +272,7 @@ backend/
 
 ---
 
-## 🎮 Contrôleurs
+##  Contrôleurs
 
 L'application utilise **4 contrôleurs principaux** qui gèrent toutes les fonctionnalités selon les rôles :
 
@@ -314,7 +314,7 @@ Gère toutes les ressources réservées aux chauffeurs :
 
 ---
 
-## 📊 Récapitulatif des contrôleurs
+##  Récapitulatif des contrôleurs
 
 | Contrôleur | Fichier | Rôle | Routes |
 |------------|---------|------|--------|
@@ -329,7 +329,7 @@ Gère toutes les ressources réservées aux chauffeurs :
 
 ---
 
-## 📚 Documentation API
+##  Documentation API
 
 ### Base URL
 
@@ -339,7 +339,7 @@ http://127.0.0.1:8000/api
 
 ---
 
-### 🔑 Authentification (Public)
+###  Authentification (Public)
 
 | Méthode | Endpoint | Body | Description |
 |---------|----------|------|-------------|
@@ -382,7 +382,7 @@ curl -X POST http://127.0.0.1:8000/api/auth/login \
 
 ---
 
-### 👑 Routes ADMIN (`/api/admin/*`)
+###  Routes ADMIN (`/api/admin/*`)
 
 **Token requis - ROLE: ADMIN**
 
@@ -578,7 +578,7 @@ dateEffet, villeDepart, distanceKm, motDePasse
 
 ---
 
-## 🔒 Sécurité
+##  Sécurité
 
 ### Authentification JWT via Sanctum
 
@@ -684,7 +684,7 @@ Route::post('/auth/login', [AuthController::class, 'login'])
 
 ---
 
-## 📦 Variables d'environnement
+##  Variables d'environnement
 
 | Variable | Description | Exemple |
 |----------|-------------|---------|
