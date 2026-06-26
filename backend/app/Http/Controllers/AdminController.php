@@ -81,7 +81,6 @@ class AdminController extends Controller
         if ($request->filled('mot_de_passe')) {
             $data['mot_de_passe'] = Hash::make($request->mot_de_passe);
         }
-
         $user->update($data);
 
         return response()->json(['message' => 'Utilisateur mis à jour', 'user' => $user], 200);

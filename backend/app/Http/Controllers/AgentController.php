@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 
 class AgentController extends Controller
 {
-    // 📌 1. GESTION DES CLIENTS (CRUD)
+    //  1. GESTION DES CLIENTS (CRUD)
     public function getClients()
     {
         $clients = Client::all();
@@ -59,7 +59,7 @@ class AgentController extends Controller
         return response()->json(['message' => 'Client supprimé'], 200);
     }
 
-    // 📌 2. GESTION DES COLIS (CRUD)
+    //  2. GESTION DES COLIS (CRUD)
 public function getColis()
 {
     $colis = Colis::with('expedition')->get();
@@ -98,7 +98,7 @@ public function createColis(Request $request)
         'id_expedition' => $request->id_expedition,
     ]);
 
-    // 3. 🔥 CALCUL AUTOMATIQUE
+    // 3. CALCUL AUTOMATIQUE
     $this->calculerCoutTotal($request->id_expedition);
 
     // 4. Notification
@@ -121,7 +121,7 @@ public function updateColis(Request $request, $id)
     
     $colis->update($request->all());
 
-    // 🔥 Recalcul si le poids ou l'expédition change
+    //  Recalcul si le poids ou l'expédition change
     if ($request->has('poids') || $request->has('id_expedition')) {
         $new_expedition_id = $request->id_expedition ?? $old_expedition_id;
         $this->calculerCoutTotal($new_expedition_id);
@@ -145,13 +145,13 @@ public function deleteColis($id)
     
     $colis->delete();
 
-    // 🔥 Recalcul après suppression
+    //  Recalcul après suppression
     $this->calculerCoutTotal($expedition_id);
 
     return response()->json(['message' => 'Colis supprimé'], 200);
 }
 
-// 📌 MÉTHODE PRIVÉE POUR RECALCULER LE COUT_TOTAL
+//  MÉTHODE PRIVÉE POUR RECALCULER LE COUT_TOTAL
 private function calculerCoutTotal($expedition_id)
 {
     $expedition = Expedition::find($expedition_id);
@@ -170,7 +170,7 @@ private function calculerCoutTotal($expedition_id)
     $expedition->save();
 }
 
-    // 📌 3. GESTION DES EXPÉDITIONS (CRUD)
+    //  3. GESTION DES EXPÉDITIONS (CRUD)
     public function getExpeditions()
     {
         $expeditions = Expedition::with(['client', 'agent', 'chauffeur', 'trajet', 'colis'])->get();
@@ -198,7 +198,7 @@ private function calculerCoutTotal($expedition_id)
 
         $expedition = Expedition::create($request->all());
 
-        // 📧 GÉNÉRER UNE NOTIFICATION
+        //  GÉNÉRER UNE NOTIFICATION
         $this->createNotificationForExpedition($expedition, 'Création d\'expédition');
 
         return response()->json(['message' => 'Expédition créée avec succès', 'expedition' => $expedition], 201);
@@ -220,7 +220,7 @@ private function calculerCoutTotal($expedition_id)
         return response()->json(['message' => 'Expédition supprimée'], 200);
     }
 
-    // 📌 4. PAIEMENTS
+    //  4. PAIEMENTS
     public function createPaiement(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -243,7 +243,7 @@ private function calculerCoutTotal($expedition_id)
             'id_agent' => $request->id_agent,
         ]);
 
-        // 🧾 GÉNÉRER UN REÇU
+        //  GÉNÉRER UN REÇU
         $recu = Recu::create([
             'numero' => 'REC-' . Str::random(10),
             'montant_total' => $request->montant,
@@ -251,7 +251,7 @@ private function calculerCoutTotal($expedition_id)
             'id_paiement' => $paiement->id_paiement,
         ]);
 
-        // 📧 GÉNÉRER UNE NOTIFICATION
+        //  GÉNÉRER UNE NOTIFICATION
         $this->createNotificationForPaiement($paiement);
 
         return response()->json([
@@ -261,7 +261,7 @@ private function calculerCoutTotal($expedition_id)
         ], 201);
     }
 
-    // 📌 5. RECHERCHE DE COLIS
+    //  5. RECHERCHE DE COLIS
     public function searchColis(Request $request)
     {
         $q = $request->query('q');
@@ -278,7 +278,7 @@ private function calculerCoutTotal($expedition_id)
         return response()->json(['colis' => $colis], 200);
     }
 
-    // 📌 6. HISTORIQUE
+    //  6. HISTORIQUE
     public function getHistorique(Request $request)
     {
         $expeditions = Expedition::with(['client', 'agent', 'chauffeur'])
@@ -288,7 +288,7 @@ private function calculerCoutTotal($expedition_id)
         return response()->json(['historique' => $expeditions], 200);
     }
 
-    // 📌 7. NOTIFICATIONS (automatiques)
+    //  7. NOTIFICATIONS (automatiques)
     private function createNotification($colis, $type)
     {
         Notification::create([

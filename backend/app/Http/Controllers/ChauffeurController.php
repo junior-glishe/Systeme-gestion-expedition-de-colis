@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ChauffeurController extends Controller
 {
-    // 📌 1. COLIS AFFECTÉS
+    // 1. COLIS AFFECTÉS
     public function getColisAffectes(Request $request)
     {
         $user = $request->user();
@@ -29,7 +29,7 @@ class ChauffeurController extends Controller
         return response()->json(['colis' => $colis], 200);
     }
 
-    // 📌 2. MODIFIER LE STATUT D'UN COLIS
+    //  2. MODIFIER LE STATUT D'UN COLIS
     public function marquerStatut(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
@@ -45,7 +45,7 @@ class ChauffeurController extends Controller
         $colis->date_modification = now();
         $colis->save();
 
-        // 📧 NOTIFICATION
+        //  NOTIFICATION
         Notification::create([
             'message' => "Statut du colis {$colis->reference} mis à jour : {$request->statut}",
             'type' => 'statut_colis',
@@ -58,7 +58,7 @@ class ChauffeurController extends Controller
         return response()->json(['message' => 'Statut mis à jour avec succès', 'colis' => $colis], 200);
     }
 
-    // 📌 3. MES TRAJETS
+    //  3. MES TRAJETS
     public function getMesTrajets(Request $request)
     {
         $user = $request->user();
@@ -75,7 +75,7 @@ class ChauffeurController extends Controller
         return response()->json(['trajets' => $trajets], 200);
     }
 
-    // 📌 4. SIGNALER UN INCIDENT
+    //  4. SIGNALER UN INCIDENT
     public function signalerIncident(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -104,7 +104,7 @@ class ChauffeurController extends Controller
             'id_chauffeur' => $chauffeur->id_chauffeur,
         ]);
 
-        // 📧 NOTIFICATION
+        // NOTIFICATION
         Notification::create([
             'message' => "Incident signalé sur l'expédition : {$request->type_incident}",
             'type' => 'incident',

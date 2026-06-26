@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+
 class AuthController extends Controller
 {
     
@@ -27,9 +28,9 @@ class AuthController extends Controller
         $user = User::create([
             'nom' => $request->nom,
             'email' => $request->email,
-            'mot_de_passe' => $request->mot_de_passe,
+            'mot_de_passe' => Hash::make($request->mot_de_passe), 
             'role' => 'ADMIN',
-            'actif' => false,   
+            'actif' => false,
         ]);
 
        
@@ -95,7 +96,7 @@ class AuthController extends Controller
                 'actif' => $user->actif,
             ],
             'token' => $token,
-            // 👇 Redirection suggérée (optionnel)
+            //  Redirection suggérée (optionnel)
             'dashboard' => $this->getDashboardUrl($user->role)
         ], 200);
     }
