@@ -32,7 +32,7 @@ Application backend Laravel pour la gestion et le suivi des expéditions de coli
 
 ---
 
-## 📋 Prérequis
+##  Prérequis
 
 Avant de commencer, assurez-vous d'avoir installé :
 
@@ -43,7 +43,7 @@ Avant de commencer, assurez-vous d'avoir installé :
 
 ---
 
-## ⚙️ Installation
+##  Installation
 
 ### 1. Cloner le dépôt
 
@@ -135,48 +135,36 @@ backend/
 ├── app/
 │   ├── Http/
 │   │   └── Controllers/
-│   │       ├── AdminController.php          # Contrôleur ADMIN (gestion agences, véhicules, tarifs, trajets, rapports)
-│   │       ├── AgentController.php          # Contrôleur AGENT (gestion clients, colis, expéditions, paiements)
-│   │       ├── AuthController.php           # Authentification (login, register, logout, me)
-│   │       ├── ChauffeurController.php      # Contrôleur CHAUFFEUR (colis affectés, trajets, incidents)
-│   │       └── Controller.php               # Contrôleur parent de Laravel
-│   │
+│   │       ├── AdminController.php          # Contrôleur ADMIN
+│   │       ├── AgentController.php          # Contrôleur AGENT
+│   │       ├── AuthController.php           # Authentification
+│   │       ├── ChauffeurController.php      # Contrôleur CHAUFFEUR
+│   │       └── Controller.php               # Contrôleur parent
 │   ├── Models/
-│   │   ├── Agence.php                       # Modèle Agence
-│   │   ├── Chauffeur.php                    # Modèle Chauffeur
-│   │   ├── Client.php                       # Modèle Client
-│   │   ├── Colis.php                        # Modèle Colis
-│   │   ├── Expedition.php                   # Modèle Expedition
-│   │   ├── Incident.php                     # Modèle Incident
-│   │   ├── Notification.php                 # Modèle Notification
-│   │   ├── Paiement.php                     # Modèle Paiement
-│   │   ├── Rapport.php                      # Modèle Rapport
-│   │   ├── Recu.php                         # Modèle Recu
-│   │   ├── Tarif.php                        # Modèle Tarif
-│   │   ├── Trajet.php                       # Modèle Trajet
-│   │   ├── User.php                         # Modèle User (Authentification)
-│   │   └── Vehicule.php                     # Modèle Vehicule
-│   │
+│   │   ├── Agence.php                       # Agences
+│   │   ├── Chauffeur.php                    # Chauffeurs
+│   │   ├── Client.php                       # Clients
+│   │   ├── Colis.php                        # Colis
+│   │   ├── Expedition.php                   # Expéditions
+│   │   ├── Incident.php                     # Incidents
+│   │   ├── Notification.php                 # Notifications
+│   │   ├── Paiement.php                     # Paiements
+│   │   ├── Rapport.php                      # Rapports
+│   │   ├── Recu.php                         # Reçus
+│   │   ├── Tarif.php                        # Tarifs
+│   │   ├── Trajet.php                       # Trajets
+│   │   ├── User.php                         # Utilisateurs
+│   │   └── Vehicule.php                     # Véhicules
 │   └── Providers/
-│       └── AppServiceProvider.php           # Enregistrement des services
-│
+│       └── AppServiceProvider.php
 ├── bootstrap/
-│   ├── cache/                               # Cache de bootstrap
-│   ├── app.php                              # Initialisation de l'application
-│   └── providers.php                        # Enregistrement des providers
-│
+│   ├── cache/
+│   ├── app.php
+│   └── providers.php
 ├── config/                                  # Configuration Laravel
-│   ├── app.php                              # Configuration de l'application
-│   ├── auth.php                             # Configuration de l'authentification
-│   ├── cors.php                             # Configuration CORS
-│   ├── database.php                         # Configuration base de données
-│   ├── sanctum.php                          # Configuration Sanctum
-│   └── ...                                  # Autres fichiers de config
-│
 ├── database/
 │   ├── factories/
-│   │   └── UserFactory.php                  # Factory pour les utilisateurs
-│   │
+│   │   └── UserFactory.php
 │   ├── migrations/
 │   │   ├── 2026_06_23_083123_create_enums_for_colisflow.php
 │   │   ├── 2026_06_23_083141_create_utilitiesateurs_table.php
@@ -196,60 +184,32 @@ backend/
 │   │   ├── 2026_06_23_083240_create_rapports_table.php
 │   │   ├── 2026_06_23_083856_add_indexes_to_colisflow_tables.php
 │   │   └── 2026_06_23_115706_create_personal_access_tokens_table.php
-│   │
 │   └── seeders/
-│       ├── DatabaseSeeder.php               # Seeder principal
-│       ├── AdminSeeder.php                  # Seed des admins
-│       ├── AgentSeeder.php                  # Seed des agents
-│       └── ChauffeurSeeder.php              # Seed des chauffeurs
-│
-├── public/                                  # Fichiers publics (index.php, assets)
-│   ├── index.php                            # Point d'entrée de l'application
-│   └── ...                                  # Autres fichiers publics
-│
+├── public/                                  # Fichiers publics
 ├── resources/                               # Vues et assets
-│   ├── views/                               # Templates Blade
-│   └── ...                                  # Autres ressources
-│
 ├── routes/
 │   ├── api.php                              # Routes API REST
 │   ├── console.php                          # Commandes console
 │   └── web.php                              # Routes web
-│
 ├── storage/                                 # Stockage
-│   ├── app/                                 # Stockage d'applications
-│   ├── framework/                           # Framework cache
-│   │   ├── cache/                           # Cache
-│   │   └── sessions/                        # Sessions
-│   ├── logs/                                # Logs d'application
-│   └── testing/                             # Tests
-│
-├── tests/                                   # Tests unitaires et fonctionnels
-│   ├── Feature/                             # Tests fonctionnels
-│   │   ├── AuthTest.php                     # Tests d'authentification
-│   │   ├── AdminTest.php                    # Tests Admin
-│   │   ├── AgentTest.php                    # Tests Agent
-│   │   └── ChauffeurTest.php                # Tests Chauffeur
-│   ├── Unit/                                # Tests unitaires
-│   └── TestCase.php                         # Classe de base des tests
-│
-├── vendor/                                  # Dépendances PHP (généré par Composer)
-│
-├── .env                                     # Configuration de l'environnement (à créer)
+│   ├── app/
+│   ├── framework/
+│   │   ├── cache/
+│   │   └── sessions/
+│   ├── logs/
+│   └── testing/
+├── tests/                                   # Tests
+├── vendor/                                  # Dépendances PHP
+├── .env                                     # Configuration (à créer)
 ├── .env.example                             # Exemple de configuration
-├── .gitattributes                           # Attributs Git
-├── .gitignore                               # Fichiers ignorés par Git
-├── .npmrc                                   # Configuration NPM
-├── AGENTS.md                                # Documentation des agents
 ├── artisan                                  # CLI Laravel
-├── boost.json                               # Configuration Boost
 ├── composer.json                            # Dépendances PHP
-├── composer.lock                            # Verrouillage des dépendances PHP
+├── composer.lock
 ├── package.json                             # Dépendances Node.js
-├── package-lock.json                        # Verrouillage des dépendances Node.js
+├── package-lock.json
 ├── phpunit.xml                              # Configuration PHPUnit
-├── README.md                                # Documentation du projet
-└── vite.config.js                           # Configuration Vite
+├── vite.config.js                           # Configuration Vite
+└── README.md                                # Ce fichier
 
 ##  Mapping UML → Modèles & Contrôleurs
 
