@@ -134,25 +134,161 @@ VITE_API_URL=http://127.0.0.1:8000/api
 
 ## 📁 Structure du projet
 
+backend/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── AdminController.php       # Contrôleur ADMIN
+│   │       ├── AgentController.php       # Contrôleur AGENT
+│   │       ├── AuthController.php        # Authentification
+│   │       ├── ChauffeurController.php   # Contrôleur CHAUFFEUR
+│   │       └── Controller.php            # Contrôleur parent
+│   ├── Models/
+│   │   ├── Agence.php                    # Agences
+│   │   ├── Chauffeur.php                 # Chauffeurs
+│   │   ├── Client.php                    # Clients
+│   │   ├── Colis.php                     # Colis
+│   │   ├── Expedition.php                # Expéditions
+│   │   ├── Incident.php                  # Incidents
+│   │   ├── Notification.php              # Notifications
+│   │   ├── Paiement.php                  # Paiements
+│   │   ├── Rapport.php                   # Rapports
+│   │   ├── Recu.php                      # Reçus
+│   │   ├── Tarif.php                     # Tarifs
+│   │   ├── Trajet.php                    # Trajets
+│   │   ├── User.php                      # Utilisateurs
+│   │   └── Vehicule.php                  # Véhicules
+│   └── Providers/
+│       └── AppServiceProvider.php
+├── bootstrap/
+│   ├── cache/
+│   ├── app.php
+│   └── providers.php
+├── config/                                # Configuration Laravel
+├── database/
+│   ├── factories/
+│   │   └── UserFactory.php
+│   ├── migrations/
+│   │   ├── 2026_06_23_083123_create_enums_for_colisflow.php
+│   │   ├── 2026_06_23_083141_create_utilitiesateurs_table.php
+│   │   ├── 2026_06_23_083153_create_agences_table.php
+│   │   ├── 2026_06_23_083203_create_vehicules_table.php
+│   │   ├── 2026_06_23_083212_create_agents_expedition_table.php
+│   │   ├── 2026_06_23_083219_create_chauffeurs_table.php
+│   │   ├── 2026_06_23_083237_create_clients_table.php
+│   │   ├── 2026_06_23_083237_create_trajets_table.php
+│   │   ├── 2026_06_23_083238_create_expeditions_table.php
+│   │   ├── 2026_06_23_083238_create_tarifs_table.php
+│   │   ├── 2026_06_23_083239_create_colis_table.php
+│   │   ├── 2026_06_23_083239_create_notifications_table.php
+│   │   ├── 2026_06_23_083239_create_paiements_table.php
+│   │   ├── 2026_06_23_083239_create_recus_table.php
+│   │   ├── 2026_06_23_083240_create_incidents_table.php
+│   │   ├── 2026_06_23_083240_create_rapports_table.php
+│   │   ├── 2026_06_23_083856_add_indexes_to_colisflow_tables.php
+│   │   └── 2026_06_23_115706_create_personal_access_tokens_table.php
+│   └── seeders/
+├── public/                                 # Fichiers publics
+├── resources/                              # Vues et assets
+├── routes/
+│   ├── api.php                            # Routes API REST
+│   ├── console.php                        # Commandes console
+│   └── web.php                            # Routes web
+├── storage/                               # Stockage
+│   ├── app/
+│   ├── framework/
+│   │   ├── cache/
+│   │   └── sessions/
+│   ├── logs/
+│   └── testing/
+├── tests/                                  # Tests
+├── vendor/                                  # Dépendances PHP
+├── .env                                     # Configuration (à créer)
+├── .env.example                             # Exemple de configuration
+├── artisan                                  # CLI Laravel
+├── composer.json                            # Dépendances PHP
+├── composer.lock
+├── package.json                             # Dépendances Node.js
+├── package-lock.json
+├── phpunit.xml                              # Configuration PHPUnit
+├── vite.config.js                           # Configuration Vite
+└── README.md                                # Ce fichier
+
+## 🔐 Mapping UML → Modèles & Contrôleurs
+
+| Classe UML | Modèle Eloquent | Fichier | Contrôleur | Routes API |
+|------------|-----------------|---------|------------|------------|
+| **Utilisateur** | User | `User.php` | `AuthController.php` | `/api/auth/*` |
+| **Client** | Client | `Client.php` | `AgentController.php` | `/api/agent/clients` |
+| **Colis** | Colis | `Colis.php` | `AgentController.php` | `/api/agent/colis` |
+| **Expedition** | Expedition | `Expedition.php` | `AgentController.php` | `/api/agent/expeditions` |
+| **Trajet** | Trajet | `Trajet.php` | `AdminController.php` | `/api/admin/trajets` |
+| **Vehicule** | Vehicule | `Vehicule.php` | `AdminController.php` | `/api/admin/vehicules` |
+| **Agence** | Agence | `Agence.php` | `AdminController.php` | `/api/admin/agences` |
+| **Chauffeur** | Chauffeur | `Chauffeur.php` | `AdminController.php` | `/api/admin/chauffeurs` |
+| **Paiement** | Paiement | `Paiement.php` | `AgentController.php` | `/api/agent/paiements` |
+| **Tarif** | Tarif | `Tarif.php` | `AdminController.php` | `/api/admin/tarifs` |
+| **Incident** | Incident | `Incident.php` | `ChauffeurController.php` | `/api/chauffeur/incidents` |
+| **Notification** | Notification | `Notification.php` | `AdminController.php` | `/api/admin/notifications` |
+| **Rapport** | Rapport | `Rapport.php` | `AdminController.php` | `/api/admin/rapports` |
+| **Recu** | Recu | `Recu.php` | `AgentController.php` | `/api/agent/recus` |
+
+---
+
+## 🎮 Contrôleurs
+
+L'application utilise **4 contrôleurs principaux** qui gèrent toutes les fonctionnalités selon les rôles :
+
+### 1. `AuthController.php` - Authentification
+Gère l'authentification des utilisateurs :
+- `POST /api/auth/register` - Inscription
+- `POST /api/auth/login` - Connexion
+- `POST /api/auth/logout` - Déconnexion
+- `GET /api/auth/me` - Informations utilisateur courant
+
+### 2. `AdminController.php` - Gestion ADMIN
+Gère toutes les ressources réservées aux administrateurs :
+- **Dashboard** - Statistiques globales
+- **Utilisateurs** - CRUD complet
+- **Agences** - CRUD complet
+- **Véhicules** - CRUD complet
+- **Tarifs** - CRUD complet
+- **Trajets** - CRUD complet
+- **Rapports** - Génération et export
+- **Notifications** - CRUD complet
+- **Chauffeurs** - CRUD complet
+
+### 3. `AgentController.php` - Gestion AGENT
+Gère toutes les ressources réservées aux agents d'expédition :
+- **Clients** - CRUD complet
+- **Colis** - CRUD complet
+- **Expéditions** - CRUD complet
+- **Paiements** - Encaissement
+- **Reçus** - Génération et consultation
+- **Recherche** - Recherche de colis
+- **Historique** - Consultation des opérations
+
+### 4. `ChauffeurController.php` - Gestion CHAUFFEUR
+Gère toutes les ressources réservées aux chauffeurs :
+- **Colis affectés** - Consultation des colis à transporter
+- **Statut colis** - Mise à jour du statut
+- **Trajets** - Consultation des trajets assignés
+- **Incidents** - Signalement d'incidents
+
+---
+
+## 📊 Récapitulatif des contrôleurs
+
+| Contrôleur | Fichier | Rôle | Routes |
+|------------|---------|------|--------|
+| **AuthController** | `AuthController.php` | Public | `/api/auth/*` |
+| **AdminController** | `AdminController.php` | ADMIN | `/api/admin/*` |
+| **AgentController** | `AgentController.php` | AGENT | `/api/agent/*` |
+| **ChauffeurController** | `ChauffeurController.php` | CHAUFFEUR | `/api/chauffeur/*` |
 
 
-## 🔐 Mapping UML → Code
 
-| Classe UML | Modèle Eloquent | Contrôleur | Routes API |
-|------------|-----------------|------------|------------|
-| Utilisateur | User.php | AuthController | `/api/auth/*` |
-| Client | Client.php | ClientController | `/api/agent/clients` |
-| Colis | Colis.php | ColisController | `/api/agent/colis` |
-| Expedition | Expedition.php | ExpeditionController | `/api/agent/expeditions` |
-| Trajet | Trajet.php | TrajetController | `/api/admin/trajets` |
-| Vehicule | Vehicule.php | VehiculeController | `/api/admin/vehicules` |
-| Agence | Agence.php | AgenceController | `/api/admin/agences` |
-| Chauffeur | Chauffeur.php | ChauffeurController | `/api/admin/chauffeurs` |
-| Paiement | Paiement.php | PaiementController | `/api/agent/paiements` |
-| Tarif | Tarif.php | TarifController | `/api/admin/tarifs` |
-| Incident | Incident.php | IncidentController | `/api/chauffeur/incidents` |
-| Notification | Notification.php | NotificationController | `/api/admin/notifications` |
-| Rapport | Rapport.php | RapportController | `/api/admin/rapports` |
+
 
 ---
 
