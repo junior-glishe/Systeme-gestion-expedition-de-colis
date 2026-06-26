@@ -131,6 +131,7 @@ VITE_API_URL=http://127.0.0.1:8000/api
 ```
 
 ### 5.  Structure du projet
+```
 backend/
 ├── app/
 │   ├── Http/
@@ -210,6 +211,7 @@ backend/
 ├── phpunit.xml                              # Configuration PHPUnit
 ├── vite.config.js                           # Configuration Vite
 └── README.md                                # Ce fichier
+```
 
 ##  Mapping UML → Modèles & Contrôleurs
 
