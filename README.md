@@ -130,8 +130,6 @@ Pour utiliser avec le frontend React, assurez-vous que `VITE_API_URL` pointe ver
 VITE_API_URL=http://127.0.0.1:8000/api
 ```
 
----
-
 ## 📁 Structure du projet
 
 backend/
@@ -213,6 +211,8 @@ backend/
 ├── phpunit.xml                              # Configuration PHPUnit
 ├── vite.config.js                           # Configuration Vite
 └── README.md                                # Ce fichier
+
+
 
 ## 🔐 Mapping UML → Modèles & Contrôleurs
 
