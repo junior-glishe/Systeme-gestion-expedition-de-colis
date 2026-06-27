@@ -1,11 +1,9 @@
 import { http } from "./api";
-
-const RESOURCE = "vehicules";
-
+const BASE = "/admin/vehicules";
 export const vehiculesService = {
-  list: (params) => http.get(`/${RESOURCE}`, params),
-  get: (id) => http.get(`/${RESOURCE}/${id}`),
-  create: (data) => http.post(`/${RESOURCE}`, data),
-  update: (id, data) => http.put(`/${RESOURCE}/${id}`, data),
-  remove: (id) => http.delete(`/${RESOURCE}/${id}`),
+  list: (params) => http.get(BASE, params),
+  get: (id) => http.get(`${BASE}/${id}`),
+  create: (data) => http.post(BASE, data),
+  update: (id, data) => http.put(`${BASE}/${id}`, data),
+  remove: (id) => http.delete(`${BASE}/${id}`),
 };

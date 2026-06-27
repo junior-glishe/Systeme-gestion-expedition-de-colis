@@ -1,11 +1,8 @@
-import { http } from "./api";
-
-const RESOURCE = "notifications";
-
+// Endpoint non exposé par le backend Laravel ; renvoie une liste vide pour éviter les 404.
 export const notificationsService = {
-  list: (params) => http.get(`/${RESOURCE}`, params),
-  get: (id) => http.get(`/${RESOURCE}/${id}`),
-  create: (data) => http.post(`/${RESOURCE}`, data),
-  update: (id, data) => http.put(`/${RESOURCE}/${id}`, data),
-  remove: (id) => http.delete(`/${RESOURCE}/${id}`),
+  list: async () => [],
+  get: async () => null,
+  create: async () => null,
+  update: async () => null,
+  remove: async () => null,
 };

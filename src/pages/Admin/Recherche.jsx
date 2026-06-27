@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
-import { colisService } from "@/services/colis.service";
+import { rechercheService } from "@/services/recherche.service";
 
 export default function Recherche() {
   const [q, setQ] = useState("");
@@ -12,7 +12,7 @@ export default function Recherche() {
     if (!q.trim()) return;
     setLoading(true);
     try {
-      const d = await colisService.list({ q: q.trim() });
+      const d = await rechercheService.colis(q.trim());
       setResults(Array.isArray(d) ? d : d?.data ?? []);
     } catch { setResults([]); } finally { setLoading(false); }
   };

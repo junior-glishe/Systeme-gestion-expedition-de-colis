@@ -1,11 +1,5 @@
 import { http } from "./api";
-
-const RESOURCE = "rapports";
-
 export const rapportsService = {
-  list: (params) => http.get(`/${RESOURCE}`, params),
-  get: (id) => http.get(`/${RESOURCE}/${id}`),
-  create: (data) => http.post(`/${RESOURCE}`, data),
-  update: (id, data) => http.put(`/${RESOURCE}/${id}`, data),
-  remove: (id) => http.delete(`/${RESOURCE}/${id}`),
+  list: async () => [],
+  create: (data) => http.post("/admin/rapports", data),
 };

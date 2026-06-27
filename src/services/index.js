@@ -14,3 +14,4 @@ export * from "./notifications.service";
 export * from "./rapports.service";
 export * from "./dashboard.service";
 export * from "./colisChauffeur.service";
+export * from "./recherche.service";

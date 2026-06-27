@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { expeditionsService } from "@/services/expeditions.service";
+import { rechercheService } from "@/services/recherche.service";
 import { formatDate, formatMoney } from "@/utils/format";
 
 export default function Historique() {
   const [items, setItems] = useState([]);
-  useEffect(() => { expeditionsService.list({ historique: 1 }).then((d) => setItems(d?.data ?? d ?? [])).catch(() => {}); }, []);
+  useEffect(() => { rechercheService.historique().then((d) => setItems(d?.data ?? d ?? [])).catch(() => {}); }, []);
   return (
     <div className="space-y-6">
       <header>
