@@ -2,9 +2,9 @@ import { http } from "./api";
 import { storage } from "@/utils/storage";
 
 export const authService = {
-  async login({ email, motDePasse }) {
+  async login({ email, mot_de_passe}) {
     // Le backend Laravel doit renvoyer { token, user: { id, nom, email, role } }
-    const data = await http.post("/auth/login", { email, motDePasse });
+    const data = await http.post("/auth/login", { email, mot_de_passe});
     if (data?.token) storage.set("token", data.token);
     if (data?.user) storage.set("user", data.user);
     return data;

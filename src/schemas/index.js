@@ -2,16 +2,16 @@ import { z } from "zod";
 
 export const loginSchema = z.object({
   email: z.string().trim().email("Email invalide").max(255),
-  motDePasse: z.string().min(8, "Au moins 8 caractères").max(128),
+  mot_de_passe: z.string().min(8, "Au moins 8 caractères").max(128),
 });
 
 export const registerSchema = z.object({
   nom: z.string().trim().min(2, "Nom requis").max(80),
   email: z.string().trim().email("Email invalide").max(255),
-  motDePasse: z.string().min(8, "Au moins 8 caractères").max(128)
+  mot_de_passe: z.string().min(8, "Au moins 8 caractères").max(128)
     .regex(/[A-Z]/, "1 majuscule requise")
     .regex(/[0-9]/, "1 chiffre requis"),
-  role: z.enum(["ADMINISTRATEUR", "AGENTEXPEDITION", "CHAUFFEUR"]).default("AGENTEXPEDITION"),
+  role: z.enum(["ADMIN", "AGENT", "CHAUFFEUR"]).default("AGENT"),
 });
 
 export const clientSchema = z.object({

@@ -17,7 +17,7 @@ export default function Login() {
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [form, setForm] = useState({ email: "", motDePasse: "" });
+  const [form, setForm] = useState({ email: "", mot_de_passe: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -127,16 +127,16 @@ export default function Login() {
               <label htmlFor="password" className="block text-sm font-medium text-[#334155] mb-1.5">Mot de passe</label>
               <div className="relative group">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#94a3b8] group-focus-within:text-[#ff7a30] transition-colors" />
-                <input id="password" name="motDePasse" type={showPassword ? "text" : "password"}
+                <input id="password" name="mot_de_passe" type={showPassword ? "text" : "password"}
                   autoComplete="current-password" maxLength={128}
-                  value={form.motDePasse} onChange={onChange} placeholder="••••••••"
+                  value={form.mot_de_passe} onChange={onChange} placeholder="••••••••"
                   className="w-full pl-12 pr-12 py-4 bg-white/90 border border-[#e2e8f0] rounded-xl text-base outline-none transition-all duration-200 focus:ring-2 focus:ring-[#ff7a30]/40 focus:border-[#ff7a30] hover:border-[#cbd5e1] placeholder:text-[#94a3b8]" />
                 <button type="button" onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-[#94a3b8] hover:text-[#334155] transition-colors" aria-label="Afficher le mot de passe">
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-              {errors.motDePasse && <p className="text-xs text-red-600 mt-1.5">{errors.motDePasse}</p>}
+              {errors.mot_de_passe&& <p className="text-xs text-red-600 mt-1.5">{errors.mot_de_passe}</p>}
             </div>
 
             <div className="flex items-center">

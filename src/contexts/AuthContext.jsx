@@ -52,7 +52,7 @@ export function useAuth() {
 
 // Constantes des rôles (alignées sur le diagramme de classe).
 export const ROLES = {
-  ADMIN: "ADMINISTRATEUR",
-  AGENT: "AGENTEXPEDITION",
+  ADMIN: "ADMIN",
+  AGENT: "AGENT",
   CHAUFFEUR: "CHAUFFEUR",
 };
